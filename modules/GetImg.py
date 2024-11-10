@@ -41,19 +41,18 @@ def GetReelImg(assetsId):
 
 def OpenImg(path:str):
     if "C:" in path:
-       return Image.open(path)
+       return Image.open(path) , path
     elif "rbxassetid://" in path:
         newpath = path.split("//")[-1] 
         image_data , assete = GetReelImg(newpath)
-        return Image.open(image_data) 
+        return Image.open(image_data) ,assete
     elif path.isdigit():
         image_data , assete = GetReelImg(path)
-        return Image.open(image_data) 
+        return Image.open(image_data) ,assete
     elif "https://create.roblox.com" in path:
         newpath = path.split("/")[-2] 
         image_data , assete = GetReelImg(newpath)
-        return Image.open(image_data) 
-
+        return Image.open(image_data) ,assete
 
 
 

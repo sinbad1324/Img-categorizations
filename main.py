@@ -1,7 +1,7 @@
 import clip  
 import torch
 from PIL import Image
-from modules.LoadData import getLoadedImages , getComparePaths
+from LoadData import categoris , getComparePaths
 from modules.GetImg import OpenImg
 
 
@@ -9,7 +9,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 
-category_features = getLoadedImages() # charger les images
+category_features = categoris() # charger les images
 
 roblox_list= ["rbxassetid://7216979807" , "rbxassetid://13401773180" ,"rbxassetid://13348242294"]
 
@@ -26,4 +26,4 @@ for item in getComparePaths(roblox_list):
         similarities[category] = similarity
 
     predicted_category = max(similarities, key=similarities.get)
-    print(f"La catégorie prédite est : {predicted_category} pour cette img")
+    print(f"La catégorie prédite est : {predicted_category} pour cette img {item["img_name"]}")
