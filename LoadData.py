@@ -9,7 +9,7 @@ from modules.GetImg import OpenImg
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
-data = r"C:\Users\41794\Desktop\Img-categorizations\assets\Data\Cat"
+data = r"C:\Users\41794\Desktop\Img-categorizations\assets\Data\flips"
 
 def SetLoadedImages():
     categories = {}
@@ -21,11 +21,11 @@ def SetLoadedImages():
             for v in files:
                 if v.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
                     categories[folder_name].append(os.path.join(path, v))
-    dj.Write( categories,"Generated_images")
+    dj.Write( categories,"Generated_images_flips")
     return categories
 
 def getLoadedImages():
-    return dj.Read("Generated_images")
+    return dj.Read("Generated_images_flips")
 
 
 
@@ -45,7 +45,7 @@ def load_features_from_file(name):
 
 
 def categoris():
-    category_features = load_features_from_file("Loaded")
+    category_features = load_features_from_file("Loaded_flips")
     if category_features is None:
         category_features ={}
         categories = getLoadedImages()
@@ -59,7 +59,7 @@ def categoris():
                 features = model.encode_image(images_tensor)
                 features /= features.norm(dim=-1, keepdim=True)
             category_features[category] = features
-            save_features_to_file(category_features , "Loaded")
+            save_features_to_file(category_features , "Loaded_flips")
     return category_features
 
 

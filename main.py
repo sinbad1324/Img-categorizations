@@ -11,7 +11,7 @@ model, preprocess = clip.load("ViT-B/32", device=device)
 
 category_features = categoris() # charger les images
 
-roblox_list= ["rbxassetid://7216979807" , "rbxassetid://13401773180" ,"rbxassetid://13348242294"]
+roblox_list= ["rbxassetid://18617723669"]
 
 for item in getComparePaths(roblox_list):
     # Encoder l'image à classifier
