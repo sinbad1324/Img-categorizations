@@ -9,7 +9,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 
-category_features = categoris() # charger les images
+category_features = categoris() 
 
 roblox_list= ["rbxassetid://18617723669"]
 
@@ -23,7 +23,16 @@ for item in getComparePaths(roblox_list):
     similarities = {}
     for category, features in category_features.items():
         similarity = (input_features @ features.T).mean().item()  # Moyenne des similarités
-        similarities[category] = similarity
-
-    predicted_category = max(similarities, key=similarities.get)
+        if similarity > .3:
+            similarities[category] = similarity
+        if similarity > .85:
+                break
+    if len(similarities) > 0:
+        predicted_category = max(similarities, key=similarities.get)
+    else:
+        predicted_category = "Other"
+    
+    print(similarities)
     print(f"La catégorie prédite est : {predicted_category} pour cette img {item["img_name"]}")
+
+
