@@ -9,7 +9,7 @@ from modules.GetImg import OpenImg
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
-data = r"C:\Users\41794\Desktop\Img-categorizations\assets\Data\cat"
+data = r"C:\Users\moham\Desktop\cat"
 
 def SetLoadedImages():
     categories = {}
@@ -41,7 +41,7 @@ def loadFeaturesFromFile(name):
         return category_features
     else:
         print("Le fichier des caractéristiques n'existe pas. Encodage des images...")
-        return None  # Signale que le fichier doit être créé
+        return None  
 
 
 def categoris():
@@ -52,7 +52,7 @@ def categoris():
         if categories is None : return {}
         for category, image_paths in categories.items():
             if not image_paths : continue
-            images = [preprocess(Image.open(path).convert('RGB')).unsqueeze(0).to(device) for path in image_paths]
+            images = [preprocess(Image.open(path).convert('L')).unsqueeze(0).to(device) for path in image_paths]
             images_tensor = torch.cat(images)
 
             with torch.no_grad():
